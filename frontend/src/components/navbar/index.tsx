@@ -1,7 +1,7 @@
 import { useAuthStore, useIsAuthenticated, useUser } from '@/store/authStore'
 
-import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
 	const isAuthenticated = useIsAuthenticated()

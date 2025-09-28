@@ -1,11 +1,14 @@
 import { useUser } from '@/store/authStore'
 
-import { Navigate } from 'react-router-dom'
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
+
 import { Servers } from './components'
 
 export default function MainDashboard() {
-	const [selectedTab, setSelectedTab] = useState<'servers' | 'settings'>('servers')
+	const [selectedTab, setSelectedTab] = useState<'servers' | 'settings'>(
+		'servers',
+	)
 
 	const user = useUser()
 
@@ -20,13 +23,14 @@ export default function MainDashboard() {
 			</h1>
 			<hr />
 			<div className="flex flex-row gap-4">
-				<button onClick={() => setSelectedTab('servers')} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+				<button
+					onClick={() => setSelectedTab('servers')}
+					className="bg-blue-500 text-white px-4 py-2 rounded-md"
+				>
 					Servers
 				</button>
 			</div>
-			{selectedTab === 'servers' && (
-				<Servers />
-			)}
+			{selectedTab === 'servers' && <Servers />}
 		</div>
 	)
 }
