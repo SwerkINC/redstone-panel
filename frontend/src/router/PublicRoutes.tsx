@@ -3,7 +3,7 @@ import Login from '@/pages/login'
 import Offers from '@/pages/offers'
 import Register from '@/pages/register'
 
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 export const PublicRoutes = () => {
 	return (
@@ -12,7 +12,6 @@ export const PublicRoutes = () => {
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
 			<Route path="/offers" element={<Offers />} />
-			<Route path="/*" element={<Navigate to="/" replace />} />
 		</Routes>
 	)
 }

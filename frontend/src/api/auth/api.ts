@@ -24,7 +24,7 @@ class AuthApi {
 		return response.data
 	}
 
-	async me(): Promise<User> {
+	async me(): Promise<{ user: User }> {
 		const response = await axios.get('/auth/me')
 		return response.data
 	}

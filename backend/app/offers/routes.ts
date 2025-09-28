@@ -6,9 +6,9 @@ const OfferController = () => import('./controller.js')
 
 router
     .group(() => {
-        router.get('/', [OfferController, 'getAllOffers'])
+        router.get('/', [OfferController, 'index'])
         router
-            .post('/:offerId/purchase', [OfferController, 'purchaseOffer'])
+            .post('/:offerId/purchase', [OfferController, 'purchase'])
             .middleware([middleware.auth()])
     })
     .prefix('/offers')

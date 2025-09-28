@@ -1,10 +1,11 @@
-import { type Offer, offersApi } from '@/api/offers'
 import {
 	type UseMutationOptions,
 	type UseQueryOptions,
 	useMutation,
 	useQuery,
 } from '@tanstack/react-query'
+
+import { type Offer, offersApi } from './'
 
 export const useGetOffersQuery = (
 	options?: UseQueryOptions<Offer[], Error>,

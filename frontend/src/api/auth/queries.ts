@@ -1,7 +1,7 @@
 import { authApi } from '@/api'
 import { useMutation } from '@tanstack/react-query'
 
-import type { LoginForm, RegisterForm } from './types'
+import type { LoginForm, RegisterForm } from './'
 
 export const useLogin = () => {
 	return useMutation({

@@ -1,6 +1,7 @@
 import { useAuthStore, useIsAuthenticated, useUser } from '@/store/authStore'
 
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function Navbar() {
 	const isAuthenticated = useIsAuthenticated()
@@ -14,6 +15,10 @@ export default function Navbar() {
 			console.error('Erreur lors de la déconnexion:', error)
 		}
 	}
+
+	useEffect(() => {
+		console.log(user)
+	}, [user])
 
 	return (
 		<nav className="bg-blue-600 text-white shadow-md">

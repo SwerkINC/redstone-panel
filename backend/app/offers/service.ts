@@ -9,7 +9,7 @@ export default class OfferService {
         return offers
     }
 
-    async findOfferById(id: number) {
+    async findById(id: number) {
         const offer = await prisma.offer.findUnique({
             where: {
                 id,

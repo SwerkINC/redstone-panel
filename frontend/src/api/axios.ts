@@ -5,6 +5,10 @@ import axios, {
 } from 'axios'
 import Cookies from 'js-cookie'
 
+export interface QueryParams {
+	[key: string]: string | number | boolean | null | undefined
+}
+
 class AxiosService {
 	private apiUrl: string
 	private instance: AxiosInstance

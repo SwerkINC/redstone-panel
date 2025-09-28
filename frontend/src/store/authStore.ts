@@ -119,7 +119,7 @@ export const useAuthStore = create<AuthStore>()(
 						const response = await authApi.me()
 
 						set({
-							user: response,
+							user: response.user,
 							isAuthenticated: true,
 							isLoading: false,
 							isInitialized: true,

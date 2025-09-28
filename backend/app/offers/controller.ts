@@ -15,12 +15,12 @@ export default class OfferController {
         private serverService: ServerService
     ) {}
 
-    async getAllOffers({ response }: HttpContext) {
+    async index({ response }: HttpContext) {
         const offers = await this.offerService.getAllOffers()
         return response.ok(offers)
     }
 
-    async purchaseOffer(ctx: HttpContext) {
+    async purchase(ctx: HttpContext) {
         const { request, response } = ctx
         const i18n = ctx.i18n || i18nManager.locale('en')
         const { offerId } = request.params()
@@ -31,7 +31,7 @@ export default class OfferController {
             })
         }
 
-        const offer = await this.offerService.findOfferById(Number(offerId))
+        const offer = await this.offerService.findById(Number(offerId))
         if (!offer) {
             return response.notFound({
                 message: i18n.t('messages.offers.offer_not_found'),

@@ -93,4 +93,51 @@ export default class ServerService {
             }
         })
     }
+
+    async findByUser(
+        userId: number,
+        { limit, page, search }: { limit: number; page: number; search: string }
+    ) {
+        return prisma.server.findMany({
+            where: {
+                user: {
+                    id: userId,
+                },
+                serverName: {
+                    contains: search,
+                },
+            },
+            skip: (page - 1) * limit,
+            take: limit,
+            include: {
+                subscription: {
+                    include: {
+                        offer: true,
+                    },
+                },
+                settings: true,
+                stats: true,
+            },
+        })
+    }
+
+    async findById(id: number, userId: number) {
+        return prisma.server.findUnique({
+            where: {
+                id,
+                user: {
+                    id: userId,
+                },
+            },
+            include: {
+                subscription: {
+                    include: {
+                        offer: true,
+                    },
+                },
+                settings: true,
+                stats: true,
+            },
+        })
+    }
 }
