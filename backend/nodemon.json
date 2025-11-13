@@ -1,0 +1,23 @@
+{
+    "watch": [".", "prisma"],
+    "ext": ".ts,.js,.json,.prisma",
+    "ignore": [
+        ".git",
+        "node_modules/*",
+        "dist/*",
+        "coverage/*",
+        "*.test.ts",
+        "*.spec.ts",
+        "*.log",
+        "logs/*"
+    ],
+    "exec": "node -r @swc-node/register -r tsconfig-paths/register index.ts",
+    "delay": "500",
+    "env": {
+        "NODE_ENV": "development",
+        "TS_NODE_TRANSPILE_ONLY": "true"
+    },
+    "legacyWatch": true,
+    "polling": true,
+    "pollInterval": 2000
+}
