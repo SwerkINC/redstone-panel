@@ -1,6 +1,6 @@
 import { FastifyRequest, RouteGenericInterface } from 'fastify';
 
-import { PrismaClient, User } from '@/config/client';
+import { PrismaClient, User } from '@/config/prisma/client';
 
 export interface Basic {
     id: string;

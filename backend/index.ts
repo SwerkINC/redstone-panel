@@ -1,17 +1,13 @@
-import Fastify from 'fastify';
-
-import configurePlugins from '@/plugins';
+import { buildApp } from '@/app';
 
 import { logger } from '@/utils';
 
-const app = Fastify();
-
 const start = async () => {
     try {
-        await configurePlugins(app);
+        const app = await buildApp();
 
-        await app.listen({ port: 3001 });
-        logger.info(`Server listening at http://localhost:3001`);
+        await app.listen({ port: 3030 });
+        logger.info(`Server listening at http://localhost:3030`);
     } catch (err) {
         logger.error(err);
         process.exit(1);
