@@ -37,3 +37,28 @@ model Permissions {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Server {
+  id String @id @default(uuid())
+  name String
+  description String?
+  ip String
+  port Int
+  version String
+  dataPath String
+  memoryLimit Int
+  cpuLimit Int
+  storageLimit Int
+  connections ServerConnections[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ServerConnections {
+  id String @id @default(uuid())
+  serverId String
+  server Server @relation(fields: [serverId], references: [id])
+  username String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
