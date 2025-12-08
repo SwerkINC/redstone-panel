@@ -32,6 +32,11 @@ export async function isAuthenticated(req: FastifyRequest, reply: FastifyReply):
             select: {
                 id: true,
                 email: true,
+                groups: {
+                    select: {
+                        name: true,
+                    },
+                },
             },
         });
 

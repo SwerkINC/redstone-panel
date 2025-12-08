@@ -1,8 +1,10 @@
+import { Prisma, User } from '@/config/prisma/client';
+
 import { PaginationMeta } from '@/types';
 
 declare module 'fastify' {
     interface FastifyRequest {
-        user: User;
+        user: User & Prisma.UserGetPayload<{ include: { groups: true } }>;
         startTime: number;
     }
     interface FastifyReply {

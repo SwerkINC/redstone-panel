@@ -93,6 +93,7 @@ describe('AuthController', () => {
         assert.ok(body.accessToken);
         assert.ok(body.refreshToken);
     });
+
     it('register should create user with verification token and return instruction', async () => {
         const email = 'newuser@app.com';
         const response = await app.inject({
@@ -184,7 +185,6 @@ describe('AuthController', () => {
         let userToken: string;
 
         before(async () => {
-            // Login to get token
             const response = await app.inject({
                 method: 'POST',
                 url: '/auth/login',

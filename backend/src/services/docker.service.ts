@@ -1,9 +1,16 @@
 import { spawn } from 'child_process';
+import { createServer as createNetServer } from 'net';
 
 class DockerService {
     constructor() {}
 
     async createServer({ name, description }: { name: string; description: string }) {
+        let port = 30000;
+
+        while (!(await this.isPortAvailable(port))) {
+            port++;
+        }
+
         return new Promise((resolve, reject) => {
             const args = [
                 'run',
@@ -11,7 +18,7 @@ class DockerService {
                 '--name',
                 name,
                 '-p',
-                '30000:25565',
+                `${port}:25565`,
                 '-e',
                 `EULA=TRUE`,
                 '-e',
@@ -33,6 +40,17 @@ class DockerService {
                 if (code === 0) resolve(output.trim());
                 else reject(new Error(errorOutput || `Docker exited with code ${code}`));
             });
+        });
+    }
+
+    private isPortAvailable(port: number): Promise<boolean> {
+        return new Promise((resolve) => {
+            const server = createNetServer();
+            server.once('error', () => resolve(false));
+            server.once('listening', () => {
+                server.close(() => resolve(true));
+            });
+            server.listen(port);
         });
     }
 }

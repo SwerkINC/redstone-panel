@@ -5,9 +5,10 @@ import { serversRoutes } from '@/modules/servers';
 
 export const registerRoutes = (app: FastifyInstance) => {
     app.register(authRoutes, {
-        prefix: '/auth',
+        prefix: 'api/auth',
     });
+
     app.register(serversRoutes, {
-        prefix: '/servers',
+        prefix: 'api/servers',
     });
 };
