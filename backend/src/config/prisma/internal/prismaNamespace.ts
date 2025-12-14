@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.0.0
- * Query Engine version: 0c19ccc313cf9911a90d99d2ac2eb0280c76c513
+ * Prisma Client JS version: 7.1.0
+ * Query Engine version: ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.0.0",
-  engine: "0c19ccc313cf9911a90d99d2ac2eb0280c76c513"
+  client: "7.1.0",
+  engine: "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba"
 }
 
 /**
@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Group: 'Group',
-  Permissions: 'Permissions'
+  Permissions: 'Permissions',
+  Server: 'Server',
+  ServerConnections: 'ServerConnections'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "group" | "permissions"
+    modelProps: "user" | "group" | "permissions" | "server" | "serverConnections"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +630,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Server: {
+      payload: Prisma.$ServerPayload<ExtArgs>
+      fields: Prisma.ServerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ServerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ServerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>
+        }
+        findFirst: {
+          args: Prisma.ServerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ServerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>
+        }
+        findMany: {
+          args: Prisma.ServerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>[]
+        }
+        create: {
+          args: Prisma.ServerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>
+        }
+        createMany: {
+          args: Prisma.ServerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ServerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>[]
+        }
+        delete: {
+          args: Prisma.ServerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>
+        }
+        update: {
+          args: Prisma.ServerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>
+        }
+        deleteMany: {
+          args: Prisma.ServerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ServerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ServerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>[]
+        }
+        upsert: {
+          args: Prisma.ServerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerPayload>
+        }
+        aggregate: {
+          args: Prisma.ServerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateServer>
+        }
+        groupBy: {
+          args: Prisma.ServerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ServerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServerCountAggregateOutputType> | number
+        }
+      }
+    }
+    ServerConnections: {
+      payload: Prisma.$ServerConnectionsPayload<ExtArgs>
+      fields: Prisma.ServerConnectionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ServerConnectionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ServerConnectionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>
+        }
+        findFirst: {
+          args: Prisma.ServerConnectionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ServerConnectionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>
+        }
+        findMany: {
+          args: Prisma.ServerConnectionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>[]
+        }
+        create: {
+          args: Prisma.ServerConnectionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>
+        }
+        createMany: {
+          args: Prisma.ServerConnectionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ServerConnectionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>[]
+        }
+        delete: {
+          args: Prisma.ServerConnectionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>
+        }
+        update: {
+          args: Prisma.ServerConnectionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.ServerConnectionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ServerConnectionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ServerConnectionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.ServerConnectionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ServerConnectionsPayload>
+        }
+        aggregate: {
+          args: Prisma.ServerConnectionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateServerConnections>
+        }
+        groupBy: {
+          args: Prisma.ServerConnectionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServerConnectionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ServerConnectionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ServerConnectionsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -701,6 +851,35 @@ export const PermissionsScalarFieldEnum = {
 } as const
 
 export type PermissionsScalarFieldEnum = (typeof PermissionsScalarFieldEnum)[keyof typeof PermissionsScalarFieldEnum]
+
+
+export const ServerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  ip: 'ip',
+  port: 'port',
+  version: 'version',
+  dataPath: 'dataPath',
+  memoryLimit: 'memoryLimit',
+  cpuLimit: 'cpuLimit',
+  storageLimit: 'storageLimit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServerScalarFieldEnum = (typeof ServerScalarFieldEnum)[keyof typeof ServerScalarFieldEnum]
+
+
+export const ServerConnectionsScalarFieldEnum = {
+  id: 'id',
+  serverId: 'serverId',
+  username: 'username',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServerConnectionsScalarFieldEnum = (typeof ServerConnectionsScalarFieldEnum)[keyof typeof ServerConnectionsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -781,6 +960,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
+
+/**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -830,7 +1023,7 @@ export type PrismaClientOptions = ({
    *  { emit: 'stdout', level: 'error' }
    * 
    * ```
-   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
+   * Read more in our [docs](https://pris.ly/d/logging).
    */
   log?: (LogLevel | LogDefinition)[]
   /**
@@ -858,11 +1051,29 @@ export type PrismaClientOptions = ({
    * ```
    */
   omit?: GlobalOmitConfig
+  /**
+   * SQL commenter plugins that add metadata to SQL queries as comments.
+   * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   comments: [
+   *     traceContext(),
+   *     queryInsights(),
+   *   ],
+   * })
+   * ```
+   */
+  comments?: runtime.SqlCommenterPlugin[]
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   group?: Prisma.GroupOmit
   permissions?: Prisma.PermissionsOmit
+  server?: Prisma.ServerOmit
+  serverConnections?: Prisma.ServerConnectionsOmit
 }
 
 /* Types for Logging */

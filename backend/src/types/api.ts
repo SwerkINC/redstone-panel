@@ -1,6 +1,6 @@
 import { FastifyRequest, RouteGenericInterface } from 'fastify';
 
-import { PrismaClient, User } from '@/config/prisma/client';
+import { Prisma, PrismaClient } from '@/config/prisma/client';
 
 export interface Basic {
     id: string;
@@ -8,9 +8,12 @@ export interface Basic {
     updatedAt: Date;
 }
 
-export interface AuthenticatedRequest<T extends RouteGenericInterface = RouteGenericInterface>
-    extends FastifyRequest<T> {
-    user: User;
+export type UserWithGroups = Prisma.UserGetPayload<{ include: { groups: true } }>;
+
+export interface AuthenticatedRequest<
+    T extends RouteGenericInterface = RouteGenericInterface,
+> extends FastifyRequest<T> {
+    user: UserWithGroups;
 }
 
 export interface ApiResponse<T = unknown> {

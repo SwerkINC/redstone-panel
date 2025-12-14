@@ -1,10 +1,8 @@
-import { Prisma, User } from '@/config/prisma/client';
-
 import { PaginationMeta } from '@/types';
 
 declare module 'fastify' {
     interface FastifyRequest {
-        user: User & Prisma.UserGetPayload<{ include: { groups: true } }>;
+        user: Partial<UserWithGroups>;
         startTime: number;
     }
     interface FastifyReply {
@@ -18,7 +16,7 @@ declare module 'fastify' {
         created<T = unknown>(data?: T, message?: string, pagination?: PaginationMeta): FastifyReply;
         auth(accessToken: string, refreshToken: string): FastifyReply;
         noContent(): FastifyReply;
-        validationError(message?: string, details?: Record<string, any>): FastifyReply;
+        validationError(message?: string, details?: Record<string, unknown>): FastifyReply;
         notFound(message?: string): FastifyReply;
     }
 }

@@ -1,37 +1,37 @@
 {
-	"name": "redstone-panel",
-	"version": "1.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "pnpm -F backend dev",
-		"build": "pnpm -F backend build",
-		"start": "pnpm -F backend start",
-		"test": "pnpm -F backend test",
-		"lint": "pnpm -F backend lint && pnpm -F frontend lint",
-		"lint:fix": "pnpm -F backend lint:fix && pnpm -F frontend lint:fix",
-		"format": "pnpm -F backend format && pnpm -F frontend format",
-		"typecheck": "pnpm -F backend typecheck",
-		"db:migrate": "pnpm -F backend db:migrate",
-		"db:reset": "pnpm -F backend db:reset",
-		"db:seed": "pnpm -F backend db:seed",
-		"db:fresh": "pnpm -F backend db:fresh",
-		"prepare": "husky"
-	},
-	"devDependencies": {
-		"husky": "^9.1.7",
-		"lint-staged": "^15.5.2"
-	},
-	"lint-staged": {
-		"backend/**/*.{js,ts,json}": [
-			"pnpm -F backend format"
-		],
-		"frontend/**/*.{js,ts,json}": [
-			"pnpm -F frontend format"
-		]
-	},
-	"workspaces": [
-		"backend",
-		"frontend"
-	]
+  "name": "redstone-panel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm -F backend dev",
+    "build": "pnpm -F backend build",
+    "start": "pnpm -F backend start",
+    "test": "pnpm -F backend test",
+    "lint": "pnpm -F backend lint && pnpm -F frontend lint",
+    "lint:fix": "pnpm -F backend lint:fix && pnpm -F frontend lint:fix",
+    "format": "pnpm -F backend format && pnpm -F frontend format",
+    "typecheck": "pnpm -F backend typecheck",
+    "db:migrate": "pnpm -F backend db:migrate",
+    "db:reset": "pnpm -F backend db:reset",
+    "db:seed": "pnpm -F backend db:seed",
+    "db:fresh": "pnpm -F backend db:fresh",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2"
+  },
+  "lint-staged": {
+    "backend/**/*.{js,ts,json}": [
+      "pnpm -F backend format"
+    ],
+    "frontend/**/*.{js,ts,json}": [
+      "pnpm -F frontend format"
+    ]
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
 }

@@ -1,48 +1,53 @@
-import { Sidebar } from "@/components";
-import { useCurrentUser } from "@/hooks";
-import Login from "@/pages/Login";
-import { useThemeStore, useUserStore } from "@/store";
-import { useEffect } from "react";
-import AppRoutes from "./routes/AppRoutes";
+import { Sidebar } from '@/components';
+
+import { useCurrentUser } from '@/hooks';
+
+import Login from '@/pages/Login';
+
+import { useThemeStore, useUserStore } from '@/store';
+
+import { useEffect } from 'react';
+
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-  const { user, setUser } = useUserStore();
-  const { data: currentUser, isLoading } = useCurrentUser();
+    const { user, setUser } = useUserStore();
+    const { data: currentUser, isLoading } = useCurrentUser();
 
-  const { initTheme } = useThemeStore();
+    const { initTheme } = useThemeStore();
 
-  // Initialize theme on mount
-  useEffect(() => {
-    initTheme();
-  }, [initTheme]);
+    // Initialize theme on mount
+    useEffect(() => {
+        initTheme();
+    }, [initTheme]);
 
-  // Auto login
-  useEffect(() => {
-    if (currentUser && currentUser.data) {
-      setUser(currentUser.data);
+    // Auto login
+    useEffect(() => {
+        if (currentUser && currentUser.data) {
+            setUser(currentUser.data);
+        }
+    }, [currentUser, setUser]);
+
+    if (isLoading) {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <div className="size-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+            </div>
+        );
     }
-  }, [currentUser, setUser]);
 
-  if (isLoading) {
+    if (!user) {
+        return <Login />;
+    }
+
     return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-      </div>
+        <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+            <Sidebar />
+            <main className="flex-1 overflow-y-auto">
+                <AppRoutes />
+            </main>
+        </div>
     );
-  }
-
-  if (!user) {
-    return <Login />;
-  }
-
-  return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto">
-        <AppRoutes />
-      </main>
-    </div>
-  );
 }
 
 export default App;

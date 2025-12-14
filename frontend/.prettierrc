@@ -1,0 +1,25 @@
+{
+    "semi": true,
+    "tabWidth": 4,
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
+    "importOrder": [
+        "^@phosphor-icons/react",
+        "^@tanstack/react-query",
+        "^@/components",
+        "^@/hooks",
+        "^@/pages",
+        "^@/routes",
+        "^@/store",
+        "^@/utils",
+        "^@/services",
+        "^@?\\w",
+        "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
+}

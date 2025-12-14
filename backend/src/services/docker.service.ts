@@ -1,15 +1,32 @@
 import { spawn } from 'child_process';
 import { createServer as createNetServer } from 'net';
 
-class DockerService {
+/** Docker service */
+export class DockerService {
     constructor() {}
 
+    /**
+     * Create a new server
+     * @param name {string} - Server name
+     * @param description {string} - Server description
+     * @returns {Promise<string>} - Server output
+     */
     async createServer({ name, description }: { name: string; description: string }) {
         let port = 30000;
 
-        while (!(await this.isPortAvailable(port))) {
-            port++;
-        }
+        port = await new Promise<number>((resolve) => {
+            let checkPort = port;
+            const checkNextPort = async () => {
+                const isAvailable = await this.isPortAvailable(checkPort);
+                if (isAvailable) {
+                    resolve(checkPort);
+                } else {
+                    checkPort += 1;
+                    checkNextPort();
+                }
+            };
+            checkNextPort();
+        });
 
         return new Promise((resolve, reject) => {
             const args = [

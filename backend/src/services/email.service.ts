@@ -3,6 +3,7 @@ import { logger } from '@/utils';
 import * as Brevo from '@getbrevo/brevo';
 import nodemailer from 'nodemailer';
 
+/** Email service */
 export class EmailService {
     private transporter: nodemailer.Transporter;
     private brevoApi: Brevo.TransactionalEmailsApi;
@@ -24,7 +25,13 @@ export class EmailService {
         }
     }
 
-    async sendVerificationEmail(email: string, token: string) {
+    /**
+     * Send verification email
+     * @param email {string} - Email address
+     * @param token {string} - Verification token
+     * @returns {Promise<void>} - Verification email sent
+     */
+    async sendVerificationEmail(email: string, token: string): Promise<void> {
         const verificationLink = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify-email?token=${token}`;
         const subject = 'Verify your email address';
         const htmlContent = `

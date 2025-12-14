@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Group: 'Group',
-  Permissions: 'Permissions'
+  Permissions: 'Permissions',
+  Server: 'Server',
+  ServerConnections: 'ServerConnections'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -106,6 +108,35 @@ export const PermissionsScalarFieldEnum = {
 } as const
 
 export type PermissionsScalarFieldEnum = (typeof PermissionsScalarFieldEnum)[keyof typeof PermissionsScalarFieldEnum]
+
+
+export const ServerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  ip: 'ip',
+  port: 'port',
+  version: 'version',
+  dataPath: 'dataPath',
+  memoryLimit: 'memoryLimit',
+  cpuLimit: 'cpuLimit',
+  storageLimit: 'storageLimit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServerScalarFieldEnum = (typeof ServerScalarFieldEnum)[keyof typeof ServerScalarFieldEnum]
+
+
+export const ServerConnectionsScalarFieldEnum = {
+  id: 'id',
+  serverId: 'serverId',
+  username: 'username',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ServerConnectionsScalarFieldEnum = (typeof ServerConnectionsScalarFieldEnum)[keyof typeof ServerConnectionsScalarFieldEnum]
 
 
 export const SortOrder = {

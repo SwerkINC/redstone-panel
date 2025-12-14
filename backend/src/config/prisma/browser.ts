@@ -32,3 +32,13 @@ export type Group = Prisma.GroupModel
  * 
  */
 export type Permissions = Prisma.PermissionsModel
+/**
+ * Model Server
+ * 
+ */
+export type Server = Prisma.ServerModel
+/**
+ * Model ServerConnections
+ * 
+ */
+export type ServerConnections = Prisma.ServerConnectionsModel

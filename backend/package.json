@@ -7,14 +7,14 @@
         "build": "tsc -b",
         "start": "ts-node -r @swc-node/register -r tsconfig-paths/register index.ts",
         "dev": "nodemon --exec \"node -r @swc-node/register -r tsconfig-paths/register\" index.ts",
-        "lint": "eslint . --config eslint.config.ts",
+        "lint": "eslint .",
         "format": "prettier --write \"./**/*.{ts,js,json}\" --config .prettierrc",
         "test": "dotenv -e .env.test -- pnpm run test:db:push && dotenv -e .env.test -- pnpm run test:seed && dotenv -e .env.test -- tsx --test test/**/*.test.ts",
         "test:db:push": "prisma db push",
         "test:seed": "ts-node -r @swc-node/register -r tsconfig-paths/register prisma/fixtures/test-seed.ts"
     },
     "keywords": [],
-    "author": "",
+    "author": "SwerkF",
     "license": "ISC",
     "packageManager": "pnpm@10.18.0",
     "dependencies": {
@@ -40,6 +40,7 @@
         "zod": "^4.1.12"
     },
     "devDependencies": {
+        "@eslint/js": "^9.39.1",
         "@fastify/cors": "^11.1.0",
         "@fastify/helmet": "^13.0.2",
         "@prisma/adapter-pg": "^7.0.0",

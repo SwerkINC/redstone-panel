@@ -10,7 +10,7 @@ const start = async () => {
         logger.info(`Server listening at http://0.0.0.0:3030`);
     } catch (err) {
         logger.error(err);
-        process.exit(1);
+        throw err;
     }
 };
 

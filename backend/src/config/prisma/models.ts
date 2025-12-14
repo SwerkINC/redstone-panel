@@ -11,4 +11,6 @@
 export type * from './models/User'
 export type * from './models/Group'
 export type * from './models/Permissions'
+export type * from './models/Server'
+export type * from './models/ServerConnections'
 export type * from './commonInputTypes'

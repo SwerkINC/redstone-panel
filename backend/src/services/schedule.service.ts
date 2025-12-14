@@ -4,7 +4,8 @@ import { logger } from '@/utils/logger';
 
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from 'toad-scheduler';
 
-class ScheduleService {
+/** Schedule service */
+export class ScheduleService {
     private logger = logger.child({
         module: `[${process.env.APP_NAME}][ScheduleService]`,
     });
@@ -14,6 +15,11 @@ class ScheduleService {
         this.logger.info(`ScheduleService initialized successfully`);
     }
 
+    /**
+     * Initialize the scheduler
+     * @param fastify {FastifyInstance} - Fastify instance
+     * @returns {void} - Scheduler initialized successfully
+     */
     initializeScheduler(fastify: FastifyInstance) {
         if (!fastify.scheduler) {
             this.logger.error(
@@ -28,10 +34,10 @@ class ScheduleService {
     }
 
     /**
-     * Démarre une fonction avec un intervalle spécifié
-     * @param name - Nom du job
-     * @param func - Fonction à exécuter
-     * @param intervalSeconds - Intervalle en secondes
+     * Start a function with a specified interval
+     * @param name {string} - Job name
+     * @param func {() => Promise<void> | void} - Function to execute
+     * @param intervalSeconds {number} - Interval in seconds
      */
     private start(name: string, func: () => Promise<void> | void, intervalSeconds: number): void {
         if (!this.scheduler) {
@@ -66,6 +72,10 @@ class ScheduleService {
      * ======== COMMANDES ========
      */
 
+    /**
+     * Log command
+     * @returns {Promise<void>} - Log command executed successfully
+     */
     private async log(): Promise<void> {
         console.log('log');
     }

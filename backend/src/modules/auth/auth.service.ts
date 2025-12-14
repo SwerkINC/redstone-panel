@@ -39,7 +39,7 @@ export class AuthService {
     };
 
     public findBy = (
-        where: Partial<Prisma.UserGetPayload<{}>>,
+        where: Partial<Prisma.UserWhereInput>,
         include?: Prisma.UserInclude
     ): Promise<User | null> => {
         return prisma.user.findFirst({

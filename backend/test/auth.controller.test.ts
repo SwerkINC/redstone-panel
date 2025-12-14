@@ -215,7 +215,7 @@ describe('AuthController', () => {
 
         it('should enable 2FA with valid code', async () => {
             const code = speakeasy.totp({
-                secret: secret,
+                secret,
                 encoding: 'base32',
             });
 
@@ -226,8 +226,8 @@ describe('AuthController', () => {
                     Authorization: `Bearer ${userToken}`,
                 },
                 payload: {
-                    secret: secret,
-                    code: code,
+                    secret,
+                    code,
                 },
             });
 
@@ -268,7 +268,7 @@ describe('AuthController', () => {
 
         it('should login with valid 2FA code', async () => {
             const code = speakeasy.totp({
-                secret: secret,
+                secret,
                 encoding: 'base32',
             });
 
@@ -278,7 +278,7 @@ describe('AuthController', () => {
                 payload: {
                     email: 'newuser@app.com',
                     password: 'Password123!',
-                    code: code,
+                    code,
                 },
             });
 

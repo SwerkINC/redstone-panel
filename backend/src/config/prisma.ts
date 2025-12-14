@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 declare global {
-    var prisma: PrismaClient | undefined;
+    var prisma: PrismaClient;
 }
 
 const adapter = new PrismaPg({

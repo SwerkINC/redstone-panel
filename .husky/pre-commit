@@ -1,1 +1,6 @@
-pnpm exec lint-staged
+
+pnpm format
+echo "Formatage terminé"
+
+pnpm lint
+echo "Lint terminé"

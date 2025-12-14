@@ -5,23 +5,30 @@ import bcrypt from 'bcrypt';
 import { groups } from './groups';
 import { generateId } from './utils';
 
-async function main() {
+/**
+ * Seed the test database with initial data for groups and an admin user.
+ */
+async function main(): Promise<void> {
     // Clean up existing data
-    await prisma.permissions.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.group.deleteMany();
+    await Promise.all([
+        prisma.permissions.deleteMany(),
+        prisma.user.deleteMany(),
+        prisma.group.deleteMany(),
+    ]);
 
-    // Create Groups
-    for (const group of groups) {
-        await prisma.group.create({
-            data: {
-                id: await generateId(),
-                ...group,
-            },
-        });
-    }
+    // Create Groups concurrently
+    await Promise.all(
+        groups.map(async (group) =>
+            prisma.group.create({
+                data: {
+                    id: await generateId(),
+                    ...group,
+                },
+            })
+        )
+    );
 
-    // Create Admin User
+    // Find Admin group by name
     const adminGroup = await prisma.group.findUnique({
         where: { name: 'Admin' },
     });
@@ -30,8 +37,9 @@ async function main() {
         throw new Error('Admin group not found');
     }
 
-    const hashedPassword = await bcrypt.hash('Motdepasse123!+', 10);
+    const hashedPassword: string = await bcrypt.hash('Motdepasse123!+', 10);
 
+    // Create Admin User
     await prisma.user.create({
         data: {
             id: await generateId(),
@@ -51,8 +59,8 @@ async function main() {
 }
 
 main()
-    .catch((e) => {
-        console.error(e);
+    .catch((err: unknown) => {
+        console.error(err);
         process.exit(1);
     })
     .finally(async () => {
