@@ -103,6 +103,7 @@ export const useDisable2FA = () => {
     return useMutation({
         mutationFn: () => authService.disable2FA(),
         onSuccess: () => {
+            // Refetch user to update 2FA status
             queryClient.invalidateQueries({ queryKey: ['user'] });
         },
     });

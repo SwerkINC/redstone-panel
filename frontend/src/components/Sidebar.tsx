@@ -17,6 +17,7 @@ import { useLogout } from '@/hooks';
 import { useSidebarStore, useThemeStore, useUserStore } from '@/store';
 
 import { Fragment, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 /** Sidebar component */
 const Sidebar = () => {
@@ -24,7 +25,14 @@ const Sidebar = () => {
     const { isDark, toggleTheme } = useThemeStore();
     const { open, setOpen } = useSidebarStore();
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const navigate = useNavigate();
+
     const logout = useLogout();
+
+    const handleNavigate = (href: string) => {
+        alert(href);
+        navigate(href);
+    };
 
     const handleLogout = () => {
         logout();
@@ -34,17 +42,17 @@ const Sidebar = () => {
         {
             name: 'Dashboard',
             icon: <HouseIcon weight="bold" />,
-            href: '#',
+            href: '/dashboard',
         },
         {
             name: 'Servers',
             icon: <HardDriveIcon weight="bold" />,
-            href: '#',
+            href: '/servers',
         },
         {
             name: 'Settings',
             icon: <GearSixIcon weight="bold" />,
-            href: '#',
+            href: '/settings',
         },
     ];
 
@@ -77,9 +85,9 @@ const Sidebar = () => {
             {/* Navigation */}
             <nav className="flex-1 space-y-2 overflow-y-auto p-4">
                 {navItems.map((item) => (
-                    <a
+                    <button
                         key={item.name}
-                        href={item.href}
+                        onClick={() => handleNavigate(item.href)}
                         className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 ${
                             !open && 'justify-center'
                         }`}
@@ -87,7 +95,7 @@ const Sidebar = () => {
                     >
                         {item.icon}
                         {open && <span className="font-medium">{item.name}</span>}
-                    </a>
+                    </button>
                 ))}
             </nav>
 

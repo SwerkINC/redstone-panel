@@ -1,8 +1,8 @@
-import { PaginationMeta } from '@/types';
+import { PaginationMeta, UserWithGroups } from '@/types';
 
 declare module 'fastify' {
     interface FastifyRequest {
-        user: Partial<UserWithGroups>;
+        user: UserWithGroups;
         startTime: number;
     }
     interface FastifyReply {

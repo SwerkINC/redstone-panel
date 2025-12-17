@@ -1,0 +1,29 @@
+meta {
+  name: create server
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/servers/create
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{jwtToken}}
+}
+
+body:json {
+  {
+    "name":"test",
+    "description":"server",
+    "type":"FABRIC",
+    "version":"1.20.1"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

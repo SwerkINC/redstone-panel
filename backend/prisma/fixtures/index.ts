@@ -1,17 +1,23 @@
 import prisma from '@/config/prisma';
 
 import bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
 
 import { groups } from './groups';
 import { users } from './users';
-import { generateId } from './utils';
 
 async function main() {
+    await Promise.all([
+        prisma.permissions.deleteMany(),
+        prisma.group.deleteMany(),
+        prisma.user.deleteMany(),
+    ]);
+
     await Promise.all(
         groups.map(async (group) => {
             await prisma.group.create({
                 data: {
-                    id: await generateId(),
+                    id: randomUUID(),
                     ...group,
                 },
             });
@@ -28,7 +34,7 @@ async function main() {
         users.map(async (user) => {
             await prisma.user.create({
                 data: {
-                    id: await generateId(),
+                    id: randomUUID(),
                     ...user,
                     password: await bcrypt.hash(user.password, 10),
                     groups: {

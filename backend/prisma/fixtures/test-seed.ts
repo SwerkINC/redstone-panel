@@ -1,9 +1,9 @@
 import prisma from '@/config/prisma';
 
 import bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
 
 import { groups } from './groups';
-import { generateId } from './utils';
 
 /**
  * Seed the test database with initial data for groups and an admin user.
@@ -11,6 +11,9 @@ import { generateId } from './utils';
 async function main(): Promise<void> {
     // Clean up existing data
     await Promise.all([
+        prisma.dockerContainer.deleteMany(),
+        prisma.server.deleteMany(),
+        prisma.serverConnections.deleteMany(),
         prisma.permissions.deleteMany(),
         prisma.user.deleteMany(),
         prisma.group.deleteMany(),
@@ -21,7 +24,7 @@ async function main(): Promise<void> {
         groups.map(async (group) =>
             prisma.group.create({
                 data: {
-                    id: await generateId(),
+                    id: randomUUID(),
                     ...group,
                 },
             })
@@ -42,7 +45,7 @@ async function main(): Promise<void> {
     // Create Admin User
     await prisma.user.create({
         data: {
-            id: await generateId(),
+            id: randomUUID(),
             email: 'admin@app.com',
             password: hashedPassword,
             username: 'Admin User',

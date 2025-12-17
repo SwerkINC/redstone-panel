@@ -1,0 +1,27 @@
+meta {
+  name: Login
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/auth/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email":"admin@app.com",
+    "password":"Motdepasse123!+"
+  }
+}
+
+script:post-response {
+  if (res.status === 200 && res.body && res.body.accessToken) {
+    bru.setVar("jwtToken", res.body.accessToken);
+    console.log("Token JWT stocké:", res.body.accessToken);
+  } else {
+    console.log("Erreur lors de la récupération du token:", res.status, res.body);
+  }
+}

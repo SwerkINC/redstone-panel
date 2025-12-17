@@ -8,7 +8,20 @@ export interface Basic {
     updatedAt: Date;
 }
 
-export type UserWithGroups = Prisma.UserGetPayload<{ include: { groups: true } }>;
+export type UserWithGroups = Prisma.UserGetPayload<{
+    select: {
+        id: true;
+        email: true;
+        username: true;
+        isTwoFactorEnabled: true;
+        isVerified: true;
+        groups: {
+            select: {
+                name: true;
+            };
+        };
+    };
+}>;
 
 export interface AuthenticatedRequest<
     T extends RouteGenericInterface = RouteGenericInterface,

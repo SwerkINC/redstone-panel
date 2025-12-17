@@ -1,64 +1,99 @@
 generator client {
-  provider="prisma-client"
-  output="../src/config/prisma"
+  provider = "prisma-client"
+  output   = "../src/config/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
+enum ServerConnectionStatus {
+  CONNECTED
+  DISCONNECTED
+}
+
+enum ServerType {
+  FORGE
+  PAPER
+  VANILLA
+  FABRIC
+}
+
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  username  String?
-  isVerified        Boolean  @default(false)
-  verificationToken String?  @unique
-  twoFactorSecret   String?
-  isTwoFactorEnabled Boolean @default(false)
-  groups    Group[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 String    @id @default(uuid())
+  email              String    @unique
+  password           String
+  username           String    @unique
+  isVerified         Boolean   @default(false)
+  verificationToken  String?   @unique
+  twoFactorSecret    String?
+  isTwoFactorEnabled Boolean   @default(false)
+  groups             Group[]
+  servers            Server[]
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  deletedAt          DateTime?
 }
 
 model Group {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  users     User[]
+  id          String        @id @default(uuid())
+  name        String        @unique
+  users       User[]
   permissions Permissions[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
 }
 
 model Permissions {
-  id        String   @id @default(uuid())
-  name      String   @unique
+  id        String    @id @default(uuid())
+  name      String    @unique
   groups    Group[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model Server {
-  id String @id @default(uuid())
-  name String
-  description String?
-  ip String
-  port Int
-  version String
-  dataPath String
-  memoryLimit Int
-  cpuLimit Int
-  storageLimit Int
-  connections ServerConnections[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String              @id @default(uuid())
+  name            String              @default("Server")
+  description     String?             @default("A Minecraft Server")
+  ip              String              @default("127.0.0.1")
+  port            Int
+  type            ServerType          @default(VANILLA)
+  version         String
+  domain          String?
+  dataPath        String
+  memoryLimit     Int                 @default(1024)
+  cpuLimit        Int                 @default(1)
+  storageLimit    Int                 @default(1024)
+  userId          String
+  user            User                @relation(fields: [userId], references: [id])
+  connections     ServerConnections[]
+  dockerContainer DockerContainer?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  deletedAt       DateTime?
+}
+
+model DockerContainer {
+  id          String    @id @default(uuid())
+  containerId String    @unique
+  name        String    @unique
+  serverId    String    @unique
+  server      Server    @relation(fields: [serverId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 model ServerConnections {
-  id String @id @default(uuid())
-  serverId String
-  server Server @relation(fields: [serverId], references: [id])
-  username String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String                 @id @default(uuid())
+  username  String
+  serverId  String
+  server    Server                 @relation(fields: [serverId], references: [id])
+  status    ServerConnectionStatus @default(DISCONNECTED)
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+  deletedAt DateTime?
 }

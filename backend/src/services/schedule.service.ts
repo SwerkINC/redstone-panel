@@ -4,6 +4,8 @@ import { logger } from '@/utils/logger';
 
 import { AsyncTask, SimpleIntervalJob, ToadScheduler } from 'toad-scheduler';
 
+import { dockerService } from './docker.service';
+
 /** Schedule service */
 export class ScheduleService {
     private logger = logger.child({
@@ -31,6 +33,7 @@ export class ScheduleService {
         this.scheduler = fastify.scheduler;
         this.logger.info('Scheduler initialized successfully');
         this.start('log', () => this.log(), 86400);
+        this.start('checkContainersStatus', () => this.checkContainersStatus(), 60);
     }
 
     /**
@@ -78,6 +81,31 @@ export class ScheduleService {
      */
     private async log(): Promise<void> {
         console.log('log');
+    }
+
+    /**
+     * Every minute, check if the containers are running. If not, stop the server.
+     * @returns {Promise<void>} - Check containers status
+     */
+    private async checkContainersStatus(): Promise<void> {
+        const servers = await prisma.server.findMany({
+            include: {
+                dockerContainer: true,
+            },
+        });
+
+        const containerIds = servers
+            .map((server) => server.dockerContainer?.containerId)
+            .filter((id) => id !== undefined);
+        const containersStatus = await dockerService.getContainersStatus(containerIds);
+
+        servers.forEach((server) => {
+            if (containersStatus[server.dockerContainer?.containerId ?? ''] === false) {
+                dockerService.stopContainer(server.dockerContainer?.containerId ?? '');
+            }
+        });
+
+        logger.info({ containersStatus }, 'Containers status');
     }
 }
 
