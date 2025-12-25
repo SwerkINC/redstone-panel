@@ -1,3 +1,5 @@
+import { cn } from '@/lib';
+
 import { type ButtonHTMLAttributes, type ReactNode, forwardRef } from 'react';
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'soft' | 'white' | 'link';
@@ -178,20 +180,21 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
         const activeClasses = active ? 'ring-2 ring-offset-2' : '';
 
-        const buttonClasses = `
-      ${baseClasses}
-      ${sizeClasses[size]}
-      ${variantColorClasses[variant][color]}
-      ${pillClasses}
-      ${blockClasses}
-      ${activeClasses}
-      ${className}
-    `
-            .trim()
-            .replace(/\s+/g, ' ');
-
         return (
-            <button ref={ref} className={buttonClasses} disabled={disabled || loading} {...props}>
+            <button
+                ref={ref}
+                className={cn(
+                    baseClasses,
+                    sizeClasses[size],
+                    variantColorClasses[variant][color],
+                    pillClasses,
+                    blockClasses,
+                    activeClasses,
+                    className
+                )}
+                disabled={disabled || loading}
+                {...props}
+            >
                 {loading && <LoadingSpinner />}
                 {!loading && iconBefore && iconBefore}
                 {!iconOnly && children}

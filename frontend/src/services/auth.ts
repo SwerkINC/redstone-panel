@@ -1,4 +1,5 @@
-import type { ApiResponse, LoginRequest, LoginResponse, RegisterRequest, User } from '@/types';
+import type { LoginSchemaType, RegisterSchemaType } from '@/schemas/auth';
+import type { ApiResponse, LoginResponse, User } from '@/types';
 
 import api from './api';
 
@@ -9,7 +10,7 @@ export const authService = {
      * @param credentials {LoginRequest} - Login request
      * @returns {Promise<LoginResponse>} - Login response
      */
-    async login(credentials: LoginRequest): Promise<LoginResponse> {
+    async login(credentials: LoginSchemaType): Promise<LoginResponse> {
         const response = await api.post('/auth/login', credentials);
         return response.data;
     },
@@ -19,7 +20,7 @@ export const authService = {
      * @param data {RegisterRequest} - Register request
      * @returns {Promise<void>} - Register response
      */
-    async register(data: RegisterRequest): Promise<void> {
+    async register(data: RegisterSchemaType): Promise<void> {
         await api.post('/auth/register', data);
     },
 

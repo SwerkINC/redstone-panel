@@ -1,4 +1,4 @@
-import type { LoginRequest, RegisterRequest } from '@/types';
+import type { LoginSchemaType, RegisterSchemaType } from '@/schemas/auth';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -16,7 +16,7 @@ export const useLogin = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (credentials: LoginRequest) => authService.login(credentials),
+        mutationFn: (credentials: LoginSchemaType) => authService.login(credentials),
         onSuccess: async (data) => {
             if (data.requires2FA) {
                 return;
@@ -37,7 +37,7 @@ export const useLogin = () => {
  */
 export const useRegister = () => {
     return useMutation({
-        mutationFn: (data: RegisterRequest) => authService.register(data),
+        mutationFn: (data: RegisterSchemaType) => authService.register(data),
     });
 };
 

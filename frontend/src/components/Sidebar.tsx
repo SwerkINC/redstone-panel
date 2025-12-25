@@ -8,6 +8,7 @@ import {
     HouseIcon,
     LightningIcon,
     MoonIcon,
+    ShieldCheckIcon,
     SignOutIcon,
     SunIcon,
 } from '@phosphor-icons/react';
@@ -17,7 +18,7 @@ import { useLogout } from '@/hooks';
 import { useSidebarStore, useThemeStore, useUserStore } from '@/store';
 
 import { Fragment, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 /** Sidebar component */
 const Sidebar = () => {
@@ -25,14 +26,8 @@ const Sidebar = () => {
     const { isDark, toggleTheme } = useThemeStore();
     const { open, setOpen } = useSidebarStore();
     const [userMenuOpen, setUserMenuOpen] = useState(false);
-    const navigate = useNavigate();
 
     const logout = useLogout();
-
-    const handleNavigate = (href: string) => {
-        alert(href);
-        navigate(href);
-    };
 
     const handleLogout = () => {
         logout();
@@ -40,19 +35,28 @@ const Sidebar = () => {
 
     const navItems = [
         {
+            name: 'Admin',
+            icon: <ShieldCheckIcon weight="bold" />,
+            href: '/admin',
+            isAdmin: true,
+        },
+        {
             name: 'Dashboard',
             icon: <HouseIcon weight="bold" />,
             href: '/dashboard',
+            isAdmin: false,
         },
         {
             name: 'Servers',
             icon: <HardDriveIcon weight="bold" />,
             href: '/servers',
+            isAdmin: false,
         },
         {
             name: 'Settings',
             icon: <GearSixIcon weight="bold" />,
             href: '/settings',
+            isAdmin: false,
         },
     ];
 
@@ -85,9 +89,9 @@ const Sidebar = () => {
             {/* Navigation */}
             <nav className="flex-1 space-y-2 overflow-y-auto p-4">
                 {navItems.map((item) => (
-                    <button
+                    <Link
                         key={item.name}
-                        onClick={() => handleNavigate(item.href)}
+                        to={item.href}
                         className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 ${
                             !open && 'justify-center'
                         }`}
@@ -95,7 +99,7 @@ const Sidebar = () => {
                     >
                         {item.icon}
                         {open && <span className="font-medium">{item.name}</span>}
-                    </button>
+                    </Link>
                 ))}
             </nav>
 

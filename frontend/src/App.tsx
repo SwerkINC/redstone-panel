@@ -4,11 +4,11 @@ import { useCurrentUser } from '@/hooks';
 
 import Login from '@/pages/Login';
 
+import AppRoutes from './routes/AppRoutes';
+
 import { useThemeStore, useUserStore } from '@/store';
 
 import { useEffect } from 'react';
-
-import AppRoutes from './routes/AppRoutes';
 
 function App() {
     const { user, setUser } = useUserStore();

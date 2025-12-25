@@ -1,5 +1,6 @@
 import { Admin } from '@/pages/Admin';
 import { Dashboard } from '@/pages/Dashboard';
+import { Offers } from '@/pages/Offers';
 import { Servers } from '@/pages/Servers';
 import { Settings } from '@/pages/Settings';
 
@@ -20,18 +21,15 @@ export default function AppRoutes() {
             {user && isAdmin && (
                 <>
                     <Route path="/admin" element={<Admin />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/servers" element={<Servers />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="/" element={<Dashboard />} />
                 </>
             )}
 
             {/* Private routes */}
-            {user && !isAdmin && (
+            {user && (
                 <>
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/servers" element={<Servers />} />
+                    <Route path="/offers" element={<Offers />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/" element={<Dashboard />} />
                 </>

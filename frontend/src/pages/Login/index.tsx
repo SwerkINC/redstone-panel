@@ -1,4 +1,4 @@
-import type { LoginRequest } from '@/types';
+import { type LoginSchemaType, loginSchema } from '@/schemas/auth';
 
 import { LightningIcon } from '@phosphor-icons/react';
 
@@ -6,6 +6,7 @@ import { Button, Card, Input } from '@/components';
 
 import { useLogin } from '@/hooks';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -18,7 +19,8 @@ export default function Login() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<LoginRequest>({
+    } = useForm<LoginSchemaType>({
+        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: '',
             password: '',
@@ -28,7 +30,7 @@ export default function Login() {
 
     const loginMutation = useLogin();
 
-    const onSubmit = async (data: LoginRequest) => {
+    const onSubmit = async (data: LoginSchemaType) => {
         setError('');
 
         try {
