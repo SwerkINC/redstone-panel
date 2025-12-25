@@ -22,7 +22,7 @@ class AuthController {
         });
     }
 
-    register = reqValidate(
+    public register = reqValidate(
         {
             body: registerSchema,
         },
@@ -60,7 +60,7 @@ class AuthController {
         }
     );
 
-    login = reqValidate(
+    public login = reqValidate(
         {
             body: loginSchema,
         },
@@ -110,11 +110,11 @@ class AuthController {
         }
     );
 
-    me = reqValidate({}, async (req, reply) => {
+    public me = reqValidate({}, async (req, reply) => {
         return reply.success(req.user);
     });
 
-    verifyEmail = reqValidate(
+    public verifyEmail = reqValidate(
         {
             query: tokenSchema,
         },
@@ -125,7 +125,7 @@ class AuthController {
         }
     );
 
-    generate2FA = reqValidate({}, async (req, reply) => {
+    public generate2FA = reqValidate({}, async (req, reply) => {
         if (req.user.isTwoFactorEnabled) {
             return reply.badRequest('Two-factor authentication is already enabled.');
         }
@@ -140,7 +140,7 @@ class AuthController {
         });
     });
 
-    enable2FA = reqValidate(
+    public enable2FA = reqValidate(
         {
             body: z.object({
                 code: z.string().length(6),
@@ -161,7 +161,7 @@ class AuthController {
         }
     );
 
-    disable2FA = reqValidate({}, async (req, reply) => {
+    public disable2FA = reqValidate({}, async (req, reply) => {
         await this.authService.disableTwoFactor(req.user.id);
         return reply.success(null, 200, 'Two-factor authentication disabled.');
     });

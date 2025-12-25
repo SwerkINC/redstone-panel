@@ -12,7 +12,7 @@ class ServerController {
     constructor() {}
 
     /** Create a new Server */
-    createServer = reqValidate(
+    public createServer = reqValidate(
         {
             body: createServerSchema,
         },
@@ -82,7 +82,7 @@ class ServerController {
     );
 
     /** Get all servers */
-    getAllServers = reqValidate(
+    public getAllServers = reqValidate(
         {
             query: getAllServersSchema,
         },
@@ -136,7 +136,7 @@ class ServerController {
     );
 
     /** Get a server by id */
-    getServerById = reqValidate(
+    public getServerById = reqValidate(
         {
             params: idStringSchema,
         },
@@ -166,7 +166,7 @@ class ServerController {
     );
 
     /** Start a server */
-    startServer = reqValidate(
+    public startServer = reqValidate(
         {
             params: idStringSchema,
         },
@@ -196,7 +196,7 @@ class ServerController {
     );
 
     /** Stop a server */
-    stopServer = reqValidate(
+    public stopServer = reqValidate(
         {
             params: idStringSchema,
         },

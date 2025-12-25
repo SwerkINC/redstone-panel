@@ -33,7 +33,7 @@ export class ScheduleService {
         this.scheduler = fastify.scheduler;
         this.logger.info('Scheduler initialized successfully');
         this.start('log', () => this.log(), 86400);
-        this.start('checkContainersStatus', () => this.checkContainersStatus(), 60);
+        //this.start('checkContainersStatus', () => this.checkContainersStatus(), 60);
     }
 
     /**

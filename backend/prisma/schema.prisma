@@ -67,6 +67,8 @@ model Server {
   memoryLimit     Int                 @default(1024)
   cpuLimit        Int                 @default(1)
   storageLimit    Int                 @default(1024)
+  offerId         String?
+  offer           Offer?              @relation(fields: [offerId], references: [id])
   userId          String
   user            User                @relation(fields: [userId], references: [id])
   connections     ServerConnections[]
@@ -96,4 +98,33 @@ model ServerConnections {
   createdAt DateTime               @default(now())
   updatedAt DateTime               @updatedAt
   deletedAt DateTime?
+}
+
+enum OfferBillingCycle {
+  MONTHLY
+  YEARLY
+}
+
+enum OfferType {
+  FREE
+  NOOB
+  MECHANIC
+  PRO
+  CUSTOM
+}
+
+model Offer {
+  id           String            @id @default(uuid())
+  name         String
+  description  String
+  price        Int
+  memoryLimit  Int
+  cpuLimit     Int
+  storageLimit Int
+  type         OfferType
+  billingCycle OfferBillingCycle
+  servers      Server[]
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  deletedAt    DateTime?
 }
